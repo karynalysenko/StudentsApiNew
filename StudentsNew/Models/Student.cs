@@ -1,8 +1,25 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
-public class Class1
+namespace StudentsNew.Models
 {
-	public Class1()
-	{
-	}
+    public class Student
+    {
+        //[Key]
+        public int StudentId { get; set; }
+        public string FirstName { get; set; } = "Nome";
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Phone { get; set; }
+
+        //[ForeignKey("UniversityId")]
+        public int UniversityId { get; set; }
+        public University? University { get; set; }
+
+        //[ForeignKey("CourseId")]
+        //public Course? Course { get; set; }
+
+    }
 }
+
