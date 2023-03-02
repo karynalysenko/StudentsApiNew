@@ -10,7 +10,7 @@ namespace StudentsNew.Data
         }
         
         public DbSet<Student> Students { get; set; }
-        public DbSet<Student> Universitys { get; set; }
+        public DbSet<University> Universitys { get; set; }
 
     }
 }

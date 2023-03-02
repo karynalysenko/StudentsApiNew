@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudentsNew.Services.StudentService;
 
 namespace StudentsNew.Controllers
 {
@@ -6,23 +7,29 @@ namespace StudentsNew.Controllers
     [Route("api/[controller]")]
     public class StudentController : ControllerBase
     {
-        private static List<Student> newStudents = new List<Student>
-        {
-            new Student(),
-            new Student {StudentId = 1, FirstName = "Hélder"}
-        };
+        private readonly IStudentService _studentService;
+
+        public StudentController(IStudentService studentService) {
+            _studentService = studentService;
+        }
 
         [HttpGet("GetAll")]
-        public ActionResult<List<Student>> Get() 
+        public async Task<ActionResult<List<Student>>> Get() 
         {
-            return Ok(newStudents);
+            return Ok(await _studentService.GetAllStudents());
         }
 
-        [HttpGet("{id}")]
-        public ActionResult<Student> GetSingle(int id)
-        {
-            return Ok(newStudents.FirstOrDefault(c => c.StudentId == id));
-        }
+        //[HttpGet("{id}")]
+        //public async Task<ActionResult<Student>> GetSingle(int id)
+        //{
+        //    return Ok(await _studentService.GetStudentById(id));
+        //}
 
+        //[HttpPost]
+        //public ActionResult<Student> AddStudent(Student newStudent)
+        //{
+        //    _studentService.Add(newStudent);
+        //    return Ok(_studentService);
+        //}
     }
 }

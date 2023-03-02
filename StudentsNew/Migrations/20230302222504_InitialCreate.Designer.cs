@@ -11,7 +11,7 @@ using StudentsNew.Data;
 namespace StudentsNew.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20230226195510_InitialCreate")]
+    [Migration("20230302222504_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -33,7 +33,6 @@ namespace StudentsNew.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StudentId"));
 
                     b.Property<string>("Email")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -45,7 +44,6 @@ namespace StudentsNew.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Phone")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UniversityId")
@@ -71,18 +69,23 @@ namespace StudentsNew.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("University");
+                    b.ToTable("Universitys");
                 });
 
             modelBuilder.Entity("StudentsNew.Models.Student", b =>
                 {
                     b.HasOne("StudentsNew.Models.University", "University")
-                        .WithMany()
+                        .WithMany("StudentsId")
                         .HasForeignKey("UniversityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("University");
+                });
+
+            modelBuilder.Entity("StudentsNew.Models.University", b =>
+                {
+                    b.Navigation("StudentsId");
                 });
 #pragma warning restore 612, 618
         }

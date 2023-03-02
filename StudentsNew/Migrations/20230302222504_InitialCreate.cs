@@ -11,7 +11,7 @@ namespace StudentsNew.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "University",
+                name: "Universitys",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -20,7 +20,7 @@ namespace StudentsNew.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_University", x => x.Id);
+                    table.PrimaryKey("PK_Universitys", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -31,17 +31,17 @@ namespace StudentsNew.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Phone = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UniversityId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Students", x => x.StudentId);
                     table.ForeignKey(
-                        name: "FK_Students_University_UniversityId",
+                        name: "FK_Students_Universitys_UniversityId",
                         column: x => x.UniversityId,
-                        principalTable: "University",
+                        principalTable: "Universitys",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -59,7 +59,7 @@ namespace StudentsNew.Migrations
                 name: "Students");
 
             migrationBuilder.DropTable(
-                name: "University");
+                name: "Universitys");
         }
     }
 }
