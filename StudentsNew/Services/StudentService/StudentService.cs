@@ -27,7 +27,10 @@ namespace StudentsNew.Services.StudentService
 
         public async Task<List<Student>> GetAllStudents()
         {
-            var dbStudents = await _context.Students.ToListAsync();
+            var dbStudents = await _context.Students
+                .Include(s => s.University)
+                .Include(s => s.Course)
+                .ToListAsync();
             return dbStudents;
         }
 
