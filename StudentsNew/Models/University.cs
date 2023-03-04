@@ -5,7 +5,6 @@ namespace StudentsNew.Models
 {
     public class University
     {
-        //[Key]
         public int Id { get; set; }
         public string? UniversityName { get; set; }
         [JsonIgnore]

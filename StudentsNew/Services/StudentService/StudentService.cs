@@ -105,5 +105,71 @@ namespace StudentsNew.Services.StudentService
             response.Data = dbStudents;
             return response;
         }
+        public async Task<ServiceResponse<Student>> DeleteStudent(int id)
+        {
+            var response = new ServiceResponse<Student>();
+            try
+            {
+                var dbStudents = await _context.Students
+                    .Include(s => s.University)
+                    .Include(s => s.Course)
+                    .FirstOrDefaultAsync(c => c.StudentId == id);
+                if (dbStudents != null)
+                {
+                    _context.Students.Remove(dbStudents);
+                    await _context.SaveChangesAsync();
+                    response.Data = dbStudents;
+                }
+                else
+                {
+                    response.Success = false;
+                    response.Message = "Student not found";
+                    return response;
+                }
+            } 
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
+
+        public async Task<ServiceResponse<Student>> UpdateStudent(Student updatedStudent)
+        {
+            var response = new ServiceResponse<Student>();
+            try
+            {
+                var dbStudent = await _context.Students
+                    .Include(s => s.University)
+                    .Include(s => s.Course)
+                    .FirstOrDefaultAsync(c => c.StudentId == updatedStudent.StudentId);
+                if (dbStudent != null)
+                {
+                    var course = await _context.Courses.FirstOrDefaultAsync(c => c.CourseId == updatedStudent.CourseId);
+                    var university = await _context.Universitys.FirstOrDefaultAsync(u => u.Id == updatedStudent.UniversityId);
+
+                    dbStudent.FirstName = updatedStudent.FirstName;
+                    dbStudent.LastName = updatedStudent.LastName;
+                    dbStudent.Phone = updatedStudent.Phone;
+                    dbStudent.Email = updatedStudent.Email;
+                    dbStudent.CourseId = updatedStudent.CourseId;
+                    dbStudent.UniversityId = updatedStudent.UniversityId;
+                    await _context.SaveChangesAsync();
+                    response.Data = dbStudent;
+                }
+                else
+                {
+                    response.Success = false;
+                    response.Message = "Student not found";
+                }
+            }
+            catch (Exception ex)
+            {
+                response.Success = false;
+                response.Message = ex.Message;
+            }
+            return response;
+        }
     }
 }
