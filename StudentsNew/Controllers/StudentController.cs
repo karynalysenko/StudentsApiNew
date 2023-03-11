@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StudentsNew.Dtos.Student;
 using StudentsNew.Services.StudentService;
 
 namespace StudentsNew.Controllers
@@ -15,25 +16,25 @@ namespace StudentsNew.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<List<Student>>> Get()
+        public async Task<ActionResult<List<GetStudentDto>>> Get()
         {
             return Ok(await _studentService.GetAllStudents());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Student>> GetSingle(int id)
+        public async Task<ActionResult<GetStudentDto>> GetSingle(int id)
         {
             return Ok(await _studentService.GetStudentById(id));
         }
 
         [HttpPost]
-        public async Task<ActionResult<ServiceResponse<Student>>> AddStudent(Student newStudent)
+        public async Task<ActionResult<ServiceResponse<GetStudentDto>>> AddStudent(AddStudentDto newStudent)
         {
             return Ok(await _studentService.AddStudent(newStudent));
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ServiceResponse<List<Student>>>> Delete(int id)
+        public async Task<ActionResult<ServiceResponse<List<GetStudentDto>>>> Delete(int id)
         {
             var response = await _studentService.DeleteStudent(id);
             if (response.Data == null)
@@ -43,7 +44,7 @@ namespace StudentsNew.Controllers
             return Ok(response);
         }
         [HttpPut]
-        public async Task<ActionResult<ServiceResponse<Student>>> UpdateStudent(Student updatedStudent)
+        public async Task<ActionResult<ServiceResponse<GetStudentDto>>> UpdateStudent(UpdateStudentDto updatedStudent)
         {
             var response = await _studentService.UpdateStudent(updatedStudent);
             if (response.Data == null)

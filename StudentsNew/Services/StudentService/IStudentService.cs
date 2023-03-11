@@ -1,11 +1,13 @@
-﻿namespace StudentsNew.Services.StudentService
+﻿using StudentsNew.Dtos.Student;
+
+namespace StudentsNew.Services.StudentService
 {
     public interface IStudentService
     {
-        Task<ServiceResponse<List<Student>>> GetAllStudents();
-        Task<ServiceResponse<Student>> GetStudentById(int id);
-        Task<ServiceResponse<List<Student>>> AddStudent(Student newStudent);
-        Task<ServiceResponse<Student>> DeleteStudent(int id);
-        Task<ServiceResponse<Student>> UpdateStudent(Student updatedStudent);
+        Task<ServiceResponse<List<GetStudentDto>>> GetAllStudents();
+        Task<ServiceResponse<GetStudentDto>> GetStudentById(int id);
+        Task<ServiceResponse<List<GetStudentDto>>> AddStudent(AddStudentDto newStudent);
+        Task<ServiceResponse<GetStudentDto>> DeleteStudent(int id);
+        Task<ServiceResponse<GetStudentDto>> UpdateStudent(UpdateStudentDto updatedStudent);
     }
 }
