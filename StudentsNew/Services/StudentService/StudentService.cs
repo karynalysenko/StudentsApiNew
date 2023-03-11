@@ -153,6 +153,7 @@ namespace StudentsNew.Services.StudentService
                     dbStudent.LastName = updatedStudent.LastName;
                     dbStudent.Phone = updatedStudent.Phone;
                     dbStudent.Email = updatedStudent.Email;
+                    dbStudent.Genre = updatedStudent.Genre;
                     dbStudent.CourseId = updatedStudent.CourseId;
                     dbStudent.UniversityId = updatedStudent.UniversityId;
                     await _context.SaveChangesAsync();
